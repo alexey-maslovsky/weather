@@ -4,19 +4,22 @@ export default class WeatherApi {
       temperature: '+17',
       forecast: [
         {
-          temperature: '+1',
+          day: '1',
+          temperature: `+${Math.round(Math.random() * 100)}`,
         },
         {
-          temperature: '+18',
+          day: '2',
+          temperature: `+${Math.round(Math.random() * 100)}`,
         },
         {
-          temperature: '+20',
+          day: '3',
+          temperature: `+${Math.round(Math.random() * 100)}`,
         },
       ],
     };
 
     return new Promise((resolve) => {
-      setTimeout(() => resolve(testData), 5000);
+      setTimeout(() => resolve(testData), 3000);
     });
   }
 }
