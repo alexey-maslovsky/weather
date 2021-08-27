@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner';
+import styles from './Home.module.scss';
 
 const Home = () => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
       {isLoading && <Spinner />}
     </div>
   );

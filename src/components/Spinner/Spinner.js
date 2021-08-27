@@ -1,10 +1,11 @@
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core';
+import styles from './Spinner.module.scss';
 
 const Spinner = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <CircularProgress />
-      Please wait...
+      <p className={styles.text}>Please wait...</p>
     </div>
   );
 };

@@ -1,22 +1,22 @@
 export default class WeatherApi {
   find(search) {
     const testData = {
-      temperature: '12 C',
+      temperature: '+17',
       forecast: [
         {
-          temperature: '1 C',
+          temperature: '+1',
         },
         {
-          temperature: '2 C',
+          temperature: '+18',
         },
         {
-          temperature: '3 C',
+          temperature: '+20',
         },
       ],
     };
 
     return new Promise((resolve) => {
-      setTimeout(() => resolve(testData), 500);
+      setTimeout(() => resolve(testData), 5000);
     });
   }
 }

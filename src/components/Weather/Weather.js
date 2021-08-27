@@ -3,7 +3,13 @@ import SearchInput from '../SearchInput/SearchInput';
 import WeatherApi from '../../services/WeatherApi';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import Spinner from '../Spinner/Spinner';
+import styles from './Weather.module.scss';
+import CityTemperature from './CityTemperature/CityTemperature';
+import ForecastBlock from './ForecastBlock/ForecastBlock';
+
+const DAYS = ['Tomorrow', 'After Tomorrow', 'After After Tomorrow'];
+
+const FORECAST_SKELETON_DATA = [ {}, {}, {} ];
 
 const Weather = () => {
   const { city } = useParams();
@@ -22,17 +28,18 @@ const Weather = () => {
   }, []);
 
   return (
-    <div>
-      <SearchInput />
-      {!data && <Spinner />}
-      {data && (
-        <div>
-          <p>{data.temperature}</p>
-          <p>{data.forecast[0].temperature}</p>
-          <p>{data.forecast[1].temperature}</p>
-          <p>{data.forecast[2].temperature}</p>
-        </div>
-      )}
+    <div className={styles.container}>
+      <div className={styles.head}>
+        <SearchInput />
+      </div>
+      <div className={styles.body}>
+        <CityTemperature city={city} temperature={data?.temperature} />
+      </div>
+      <div className={styles.footer}>
+        {(data?.forecast || FORECAST_SKELETON_DATA).map(({ temperature }, index) => (
+          <ForecastBlock temperature={temperature} day={DAYS[index]} />
+        ))}
+      </div>
     </div>
   );
 };

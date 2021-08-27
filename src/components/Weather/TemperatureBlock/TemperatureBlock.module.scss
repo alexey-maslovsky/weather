@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.temperature {
+  margin-right: 12px;
+  font-size: 36px;
+}
+
+svg.icon {
+  width: 36px;
+  height: 36px;
+}
