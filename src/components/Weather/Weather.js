@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import SearchInput from '../SearchInput/SearchInput';
-import WeatherApi from '../../services/WeatherApi';
 import { useHistory, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './Weather.module.scss';
 import CityTemperature from './CityTemperature/CityTemperature';
 import ForecastBlock from './ForecastBlock/ForecastBlock';
 import { useDispatch, useSelector } from 'react-redux';
-import { setWeatherData } from '../../store';
+import { getWeatherData } from '../../store/weather';
+import Likes from './Likes/Likes';
+import { getLikes } from '../../store/likes';
 
 const DAYS = ['Tomorrow', 'After Tomorrow', 'After After Tomorrow'];
 
@@ -21,13 +22,8 @@ const Weather = () => {
   const { data } = useSelector((state) => state.weather);
 
   const loadData = async () => {
-    const api = new WeatherApi();
-
-    dispatch(setWeatherData(null));
-
-    const result = await api.find(city);
-
-    dispatch(setWeatherData(result));
+    dispatch(getWeatherData(search));
+    dispatch(getLikes(search));
   };
 
   const handleOnChange = (event) => {
@@ -51,6 +47,7 @@ const Weather = () => {
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
+        <Likes />
       </div>
       <div className={styles.body}>
         <CityTemperature city={city} temperature={data?.temperature} />
