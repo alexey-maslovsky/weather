@@ -6,7 +6,7 @@ import { useState } from 'react';
 import styles from './Weather.module.scss';
 import CityTemperature from './CityTemperature/CityTemperature';
 import ForecastBlock from './ForecastBlock/ForecastBlock';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setWeatherData } from '../../store';
 
 const DAYS = ['Tomorrow', 'After Tomorrow', 'After After Tomorrow'];
@@ -16,20 +16,18 @@ const FORECAST_SKELETON_DATA = [ { day: '1' }, { day: '2' }, { day: '3' } ];
 const Weather = () => {
   const history = useHistory();
   const { city } = useParams();
-  const [data, setData] = useState(null);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.weather);
 
   const loadData = async () => {
     const api = new WeatherApi();
 
     dispatch(setWeatherData(null));
-    setData(null);
 
     const result = await api.find(city);
 
     dispatch(setWeatherData(result));
-    setData(result);
   };
 
   const handleOnChange = (event) => {
