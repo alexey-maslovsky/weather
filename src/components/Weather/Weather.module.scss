@@ -10,7 +10,16 @@
 }
 
 .header {
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
 
+.likes {
+  position: absolute;
+  right: 0;
 }
 
 .body {

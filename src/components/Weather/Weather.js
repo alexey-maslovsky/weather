@@ -40,14 +40,14 @@ const Weather = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.head}>
+      <div className={styles.header}>
         <SearchInput
           value={search}
           disabled={!data}
           onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
-        <Likes />
+        <Likes className={styles.likes} />
       </div>
       <div className={styles.body}>
         <CityTemperature city={city} temperature={data?.temperature} />

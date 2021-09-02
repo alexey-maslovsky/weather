@@ -30,6 +30,10 @@ const likesReducer = createReducer(initialState, (builder) => {
   builder.addCase(like.pending, (state) => {
     state.count = state.count + 1;
   });
+
+  builder.addCase(dislike.pending, (state) => {
+    state.count = state.count - 1;
+  });
 });
 
 export default likesReducer;
