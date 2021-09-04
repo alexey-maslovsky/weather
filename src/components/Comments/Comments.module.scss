@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.noComments {
+  font-size: 36px;
+  padding: 24px 0;
+}
