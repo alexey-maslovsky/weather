@@ -12,7 +12,9 @@ export const getComments = createAsyncThunk('comments/getComments', async (searc
 export const addComment = createAsyncThunk('comments/addComment', async (comment) => {
   const api = new CommentsApi();
 
-  await api.addComment(comment);
+  const addedComment = await api.addComment(comment);
+
+  return addedComment;
 });
 
 const initialState = {
@@ -24,8 +26,8 @@ const commentsReducer = createReducer(initialState, (builder) => {
     state.comments = action.payload;
   });
 
-  builder.addCase(addComment.pending, (state, action) => {
-    state.comments.push(action.meta.arg);
+  builder.addCase(addComment.fulfilled, (state, action) => {
+    state.comments.push(action.payload);
   });
 });
 

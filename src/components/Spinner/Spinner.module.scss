@@ -1,6 +1,15 @@
 .container {
   display: flex;
   align-items: center;
+
+  &.small {
+    height: 20px;
+
+    .spinner {
+      height: 20px;
+      width: 20px;
+    }
+  }
 }
 
 .text {

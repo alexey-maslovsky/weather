@@ -1,0 +1,20 @@
+.container {
+  padding: 24px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  margin: 24px 0;
+
+  .avatar {
+    margin-right: 12px;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
+  .text {
+    padding-top: 12px;
+    white-space: pre-wrap;
+    max-width: 800px;
+  }
+}

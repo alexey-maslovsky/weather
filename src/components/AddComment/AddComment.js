@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { addComment } from '../../store/comments';
+import Spinner from '../../components/Spinner/Spinner';
 import styles from './AddComments.module.scss';
 
 const AddComment = () => {
@@ -11,6 +12,7 @@ const AddComment = () => {
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   if (location.search !== '?add') {
     return null;
@@ -29,28 +31,61 @@ const AddComment = () => {
   };
 
   const handleOnClick = async () => {
-    await dispatch(addComment({
-      name,
-      text: comment,
-    }));
+    setIsLoading(true);
 
-    handleOnClose();
+    try {
+      await dispatch(addComment({
+        name,
+        text: comment,
+      }));
+
+      handleOnClose();
+    }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <Modal open onClose={handleOnClose}>
       <Box className={styles.modalBody}>
+        <h1>Add Comment</h1>
         <TextField
           label="Name"
           value={name}
           onChange={handleNameChange}
+          fullWidth
+          className={styles.name}
         />
         <TextField
           label="Comment"
           value={comment}
           onChange={handleCommentChange}
+          fullWidth
+          multiline
+          className={styles.comment}
+          minRows={3}
+          maxRows={10}
         />
-        <Button onClick={handleOnClick}>Send</Button>
+        <div className={styles.modalFooter} >
+          <Button
+            onClick={handleOnClose}
+            variant="outlined"
+            className={styles.cancelButton}
+            disabled={isLoading}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleOnClick}
+            variant="contained"
+            className={styles.submitButton}
+            disabled={isLoading}
+          >
+            {!isLoading && 'Send'}
+            {isLoading && <Spinner size="small" />}
+          </Button>
+        </div>
       </Box>
     </Modal>
   );

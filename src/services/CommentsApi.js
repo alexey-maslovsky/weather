@@ -7,7 +7,10 @@ export default class CommentsApi {
 
   addComment(comment) {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(), 500);
+      setTimeout(() => resolve({
+        id: Math.random() * Date.now() + comment.name,
+        ...comment,
+      }), 500);
     });
   }
 }
