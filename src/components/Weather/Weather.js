@@ -19,7 +19,7 @@ const FORECAST_SKELETON_DATA = [ { day: '1' }, { day: '2' }, { day: '3' } ];
 const Weather = () => {
   const history = useHistory();
   const { city } = useParams();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(city);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.weather);
   const { comments } = useSelector((state) => state.comments);
