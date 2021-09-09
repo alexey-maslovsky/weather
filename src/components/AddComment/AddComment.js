@@ -88,8 +88,8 @@ const AddComment = () => {
           minRows={3}
           maxRows={10}
           inputRef={commentRef}
-          helperText={errors.comment}
-          error={errors.comment?.length > 0}
+          helperText={errors.text}
+          error={errors.text?.length > 0}
         />
         <div className={styles.modalFooter} >
           <Button

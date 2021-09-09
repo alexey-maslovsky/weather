@@ -1,24 +1,24 @@
 import { TextField, InputAdornment, debounce } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const SearchInput = ({
   value,
   disabled,
-  onChange,
   onSubmit,
 }) => {
+  const [search, setSearch] = useState(value);
   const onSumbitDebounced = useRef(debounce(onSubmit, 1000));
 
   const handleOnChange = (event) => {
-    onChange(event);
+    setSearch(event.target.value);
 
-    onSumbitDebounced.current();
+    onSumbitDebounced.current(event.target.value);
   };
 
   return (
     <TextField
-      value={value}
+      value={search}
       onChange={handleOnChange}
       disabled={disabled}
       placeholder="Type some city..."

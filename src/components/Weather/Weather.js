@@ -19,24 +19,19 @@ const FORECAST_SKELETON_DATA = [ { day: '1' }, { day: '2' }, { day: '3' } ];
 const Weather = () => {
   const history = useHistory();
   const { city } = useParams();
-  const [search, setSearch] = useState(city);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.weather);
   const { comments } = useSelector((state) => state.comments);
 
   const loadData = async () => {
     batch(() => {
-      dispatch(getWeatherData(search));
-      dispatch(getLikes(search));
-      dispatch(getComments(search));
+      dispatch(getWeatherData(city));
+      dispatch(getLikes(city));
+      dispatch(getComments(city));
     });
   };
 
-  const handleOnChange = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const handleOnSubmit = () => {
+  const handleOnSubmit = (search) => {
     history.push(`/${search}`);
   };
 
@@ -48,9 +43,8 @@ const Weather = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <SearchInput
-          value={search}
+          value={city}
           disabled={!data}
-          onChange={handleOnChange}
           onSubmit={handleOnSubmit}
         />
         <Likes className={styles.likes} />
