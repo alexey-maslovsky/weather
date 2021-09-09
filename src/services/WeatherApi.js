@@ -19,7 +19,7 @@ export default class WeatherApi {
     };
 
     return new Promise((resolve) => {
-      setTimeout(() => resolve(testData), 3000);
+      setTimeout(() => resolve(search.length > 4 ? testData : null), 2000);
     });
   }
 }

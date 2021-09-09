@@ -15,6 +15,7 @@ const AddComment = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const commentRef = useRef(null);
+  const submitRef = useRef(null);
   const [errors, setErrors] = useState({});
 
   if (location.search !== '?add') {
@@ -64,6 +65,17 @@ const AddComment = () => {
     }
   };
 
+  const handleCommentKeyDown = (event) => {
+    if (event.ctrlKey && event.key === 'Enter') {
+      setText(text + '\n');
+    }
+
+    if (!event.ctrlKey && event.key === 'Enter') {
+      submitRef.current.click();
+      event.preventDefault();
+    }
+  };
+
   return (
     <Modal open onClose={handleOnClose}>
       <Box className={styles.modalBody}>
@@ -82,6 +94,7 @@ const AddComment = () => {
           label="Comment"
           value={text}
           onChange={handleCommentChange}
+          onKeyDown={handleCommentKeyDown}
           fullWidth
           multiline
           className={styles.comment}
@@ -105,7 +118,8 @@ const AddComment = () => {
             variant="contained"
             className={styles.submitButton}
             disabled={isLoading}
-          >
+            ref={submitRef}
+            >
             {!isLoading && 'Send'}
             {isLoading && <Spinner size="small" />}
           </Button>

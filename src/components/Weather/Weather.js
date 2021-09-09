@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import SearchInput from '../SearchInput/SearchInput';
 import { useHistory, useParams } from 'react-router-dom';
-import { useState } from 'react';
 import styles from './Weather.module.scss';
 import CityTemperature from './CityTemperature/CityTemperature';
 import ForecastBlock from './ForecastBlock/ForecastBlock';
@@ -11,6 +10,7 @@ import Likes from './Likes/Likes';
 import { getLikes } from '../../store/likes';
 import { getComments } from '../../store/comments';
 import CommentsCount from './CommentsCount/CommentsCount';
+import NoData from './NoData/NoData';
 
 const DAYS = ['Tomorrow', 'After Tomorrow', 'After After Tomorrow'];
 
@@ -39,12 +39,16 @@ const Weather = () => {
     loadData();
   }, [city]);
 
+  const forecastData = data === null
+    ? null
+    : data?.forecast || FORECAST_SKELETON_DATA;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <SearchInput
           value={city}
-          disabled={!data}
+          disabled={data === undefined}
           onSubmit={handleOnSubmit}
         />
         <Likes className={styles.likes} />
@@ -55,10 +59,11 @@ const Weather = () => {
         />
       </div>
       <div className={styles.body}>
-        <CityTemperature city={city} temperature={data?.temperature} />
+        {data !== null && <CityTemperature city={city} temperature={data?.temperature} />}
+        {data === null && <NoData />}
       </div>
       <div className={styles.footer}>
-        {(data?.forecast || FORECAST_SKELETON_DATA).map(({ temperature, day }, index) => (
+        {forecastData?.map(({ temperature, day }, index) => (
           <ForecastBlock key={day} temperature={temperature} day={DAYS[index]} />
         ))}
       </div>

@@ -9,12 +9,12 @@ export const getWeatherData = createAsyncThunk('weather/getData', async (search)
 });
 
 const initialState = {
-  data: null,
+  data: undefined,
 };
 
 const weatherReducer = createReducer(initialState, (builder) => {
   builder.addCase(getWeatherData.pending, (state) => {
-    state.data = null;
+    state.data = undefined;
   });
 
   builder.addCase(getWeatherData.fulfilled, (state, action) => {
