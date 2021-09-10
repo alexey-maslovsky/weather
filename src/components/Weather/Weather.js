@@ -51,7 +51,7 @@ const Weather = () => {
           disabled={data === undefined}
           onSubmit={handleOnSubmit}
         />
-        <Likes className={styles.likes} />
+        <Likes className={styles.likes} search={city} />
         <CommentsCount
           className={styles.commentsCount}
           count={comments && comments.length}

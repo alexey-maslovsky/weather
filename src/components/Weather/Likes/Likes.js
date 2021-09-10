@@ -6,20 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dislike, like } from '../../../store/likes';
 import styles from './Likes.module.scss';
 
-const Likes = ({ className }) => {
+const Likes = ({ className, search }) => {
   const { count } = useSelector((state) => state.likes);
   const dispatch = useDispatch();
   const [isLiked, setIsLiked] = useState(false);
 
   const handleOnClick = () => {
-    // add search as property and pass it to like()
-
     if (isLiked) {
       setIsLiked(false);
-      dispatch(dislike());
+      dispatch(dislike(search));
     } else {
       setIsLiked(true);
-      dispatch(like());
+      dispatch(like(search));
     }
   };
 

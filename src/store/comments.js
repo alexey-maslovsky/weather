@@ -9,10 +9,10 @@ export const getComments = createAsyncThunk('comments/getComments', async (searc
   return result;
 });
 
-export const addComment = createAsyncThunk('comments/addComment', async (comment) => {
+export const addComment = createAsyncThunk('comments/addComment', async (data) => {
   const api = new CommentsApi();
 
-  const addedComment = await api.addComment(comment);
+  const addedComment = await api.addComment(data.search, data.comment);
 
   return addedComment;
 });

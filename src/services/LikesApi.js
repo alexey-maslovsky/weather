@@ -1,21 +1,17 @@
 export default class LikesApi {
-  getLikes(search) {
-    return new Promise((resolve) => {
-      const likes = Math.round(Math.random() * 100);
+  async getLikes(search) {
+    const response = await fetch(`/api/weather/${search}/likes`);
 
-      setTimeout(() => resolve(likes), 1000);
-    });
+    const { likes } = await response.json();
+
+    return likes;
   }
 
-  like(search) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000);
-    });
+  async like(search) {
+    await fetch(`/api/weather/${search}/likes`, { method: 'POST' });
   }
 
-  dislike(search) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000);
-    });
+  async dislike(search) {
+    await fetch(`/api/weather/${search}/likes`, { method: 'DELETE' });
   }
 }

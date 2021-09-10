@@ -1,16 +1,23 @@
 export default class CommentsApi {
-  getComments(search) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([]), 1500);
-    });
+  async getComments(search) {
+    const response = await fetch(`/api/weather/${search}/comments`);
+
+    const data = await response.json();
+
+    return data;
   }
 
-  addComment(comment) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({
-        id: Math.random() * Date.now() + comment.name,
-        ...comment,
-      }), 500);
+  async addComment(search, comment) {
+    const response = await fetch(`/api/weather/${search}/comments`, {
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+
+    const data = await response.json();
+
+    return data;
   }
 }

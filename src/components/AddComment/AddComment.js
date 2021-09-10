@@ -1,7 +1,7 @@
 import { Box, Button, Modal, TextField } from '@material-ui/core';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { addComment } from '../../store/comments';
 import Spinner from '../../components/Spinner/Spinner';
 import styles from './AddComments.module.scss';
@@ -17,6 +17,7 @@ const AddComment = () => {
   const commentRef = useRef(null);
   const submitRef = useRef(null);
   const [errors, setErrors] = useState({});
+  const { city: search } = useParams();
 
   if (location.search !== '?add') {
     return null;
@@ -46,8 +47,11 @@ const AddComment = () => {
 
     try {
       await dispatch(addComment({
-        name,
-        text: text,
+        search,
+        comment: {
+          name,
+          text,
+        },
       }));
 
       setName('');
